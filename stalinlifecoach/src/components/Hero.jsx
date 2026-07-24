@@ -6,7 +6,7 @@ import {
   FaUserMd,
   FaVideo,
 } from "react-icons/fa";
-import backgroundImage from '../assets/background.png'; // ✅ Import your background image
+import backgroundImage from '../assets/Background.png'; // ✅ Import your background image
 
 function Hero() {
   return (
@@ -14,7 +14,7 @@ function Hero() {
       className="hero" 
       id="home"
       style={{
-        backgroundImage: `url('./assets/background.png')`, // ✅ Use the imported image
+        backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
