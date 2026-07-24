@@ -11,11 +11,24 @@ connectDB();
 
 const app = express();
 
-// Middleware
+// ============================================
+// ✅ CORS - Allow Vercel Frontend
+// ============================================
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174'],
-  credentials: true
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://localhost:5174',
+    'https://stalinlifecoach.vercel.app',      // ✅ Add this
+    'https://stalinlifecoach-navy.vercel.app', // ✅ Add this
+    'https://stalinlifecoach-git-main.sarumathie.vercel.app' // ✅ If exists
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,11 +41,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ============================================
-// ROUTES - Payment Routes Removed
-// ============================================
-
-// ✅ Only Appointment Routes (No Payment)
+// Routes
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
 
 // Health check
@@ -69,10 +78,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ============================================
-// START SERVER
-// ============================================
-
+// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log('═══════════════════════════════════════════');
@@ -80,12 +86,5 @@ app.listen(PORT, () => {
   console.log('═══════════════════════════════════════════');
   console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
   console.log(`📝 Appointments API: http://localhost:${PORT}/api/appointments`);
-  console.log(`📝 Create Appointment: POST http://localhost:${PORT}/api/appointments/create`);
-  console.log('═══════════════════════════════════════════');
-  console.log('🔧 Available Routes:');
-  console.log(`  GET  /api/health`);
-  console.log(`  GET  /api/appointments`);
-  console.log(`  POST /api/appointments/create`);
-  console.log(`  GET  /api/appointments/:bookingId`);
   console.log('═══════════════════════════════════════════');
 });
