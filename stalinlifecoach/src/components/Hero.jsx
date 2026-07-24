@@ -14,7 +14,7 @@ function Hero() {
       className="hero" 
       id="home"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url('./assets/background.png')`, // ✅ Use the imported image
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
