@@ -3,11 +3,20 @@ const fs = require('fs');
 const path = require('path');
 
 // ============================================
-// EMAIL CONFIGURATION - WITH APP PASSWORD
+// EMAIL PROVIDER SELECTION
 // ============================================
 
-// Create transporter for real email
-const createTransporter = () => {
+// Choose your email provider:
+// 'gmail' - Gmail SMTP (may be blocked on Render Free)
+// 'ethereal' - Free test email (works everywhere)
+// 'console' - Only console log (no real email)
+const EMAIL_PROVIDER = process.env.EMAIL_PROVIDER || 'console';
+
+// ============================================
+// CREATE TRANSPORTER
+// ============================================
+
+const createTransporter = async () => {
   // Check if email credentials are set in .env
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     console.log('⚠️ Email credentials not configured. Using console log only.');
@@ -16,26 +25,43 @@ const createTransporter = () => {
 
   console.log('✅ Email configured for:', process.env.EMAIL_USER);
 
-  // ✅ Use Gmail SMTP with proper settings
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // true for 465, false for 587
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS // ← App Password (no spaces)
-    },
-    tls: {
-      rejectUnauthorized: false
-    },
-    connectionTimeout: 30000, // 30 seconds
-    greetingTimeout: 30000,
-    socketTimeout: 30000
-  });
+  // ✅ Gmail SMTP
+  if (EMAIL_PROVIDER === 'gmail') {
+    return nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      },
+      tls: { rejectUnauthorized: false },
+      connectionTimeout: 30000,
+      greetingTimeout: 30000,
+      socketTimeout: 30000
+    });
+  }
+
+  // ✅ Ethereal (Free test email - no DNS needed!)
+  if (EMAIL_PROVIDER === 'ethereal') {
+    const testAccount = await nodemailer.createTestAccount();
+    console.log('✅ Ethereal account created');
+    return nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass
+      }
+    });
+  }
+
+  return null;
 };
 
 // ============================================
-// SEND EMAIL - Console + File + Real Email
+// SEND EMAIL
 // ============================================
 
 const sendEmail = async ({ to, subject, html }) => {
@@ -56,13 +82,13 @@ const sendEmail = async ({ to, subject, html }) => {
     console.log('⚠️ Could not save to file:', fileError.message);
   }
 
-  // ✅ 3. Try to send real email (if configured)
+  // ✅ 3. Try to send real email
   try {
-    const transporter = createTransporter();
+    const transporter = await createTransporter();
     
     if (transporter) {
       const mailOptions = {
-        from: process.env.EMAIL_USER,
+        from: process.env.EMAIL_USER || 'stalinlifecoach77@gmail.com',
         to: to,
         subject: subject,
         html: html
@@ -70,7 +96,14 @@ const sendEmail = async ({ to, subject, html }) => {
 
       const info = await transporter.sendMail(mailOptions);
       console.log(`✅ Real email sent to ${to}`);
-      console.log(`📧 Message ID: ${info.messageId}`);
+      
+      // If using Ethereal, show preview URL
+      if (EMAIL_PROVIDER === 'ethereal') {
+        console.log(`📧 Preview: ${nodemailer.getTestMessageUrl(info)}`);
+      } else {
+        console.log(`📧 Message ID: ${info.messageId}`);
+      }
+      
       return { success: true, real: true, messageId: info.messageId };
     }
   } catch (emailError) {
