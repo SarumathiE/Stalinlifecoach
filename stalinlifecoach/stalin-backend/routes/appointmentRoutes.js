@@ -137,11 +137,11 @@ router.post('/create', async (req, res) => {
     }
 
     // ============================================
-    // 2. SEND EMAIL TO ADMIN (STALIN) - NEW
+    // 2. SEND EMAIL TO ADMIN
     // ============================================
     try {
       await sendEmail({
-        to: 'stalinlifecoach77@gmail.com', // ✅ Admin email
+        to: 'stalinlifecoach77@gmail.com',
         subject: '🔔 New Appointment Booking - Stalin Life Coach',
         html: `
           <!DOCTYPE html>

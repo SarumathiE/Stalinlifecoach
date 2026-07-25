@@ -6,10 +6,6 @@ const path = require('path');
 // EMAIL PROVIDER SELECTION
 // ============================================
 
-// Choose your email provider:
-// 'gmail' - Gmail SMTP (may be blocked on Render Free)
-// 'ethereal' - Free test email (works everywhere)
-// 'console' - Only console log (no real email)
 const EMAIL_PROVIDER = process.env.EMAIL_PROVIDER || 'console';
 
 // ============================================
@@ -17,7 +13,6 @@ const EMAIL_PROVIDER = process.env.EMAIL_PROVIDER || 'console';
 // ============================================
 
 const createTransporter = async () => {
-  // Check if email credentials are set in .env
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     console.log('⚠️ Email credentials not configured. Using console log only.');
     return null;
@@ -97,7 +92,6 @@ const sendEmail = async ({ to, subject, html }) => {
       const info = await transporter.sendMail(mailOptions);
       console.log(`✅ Real email sent to ${to}`);
       
-      // If using Ethereal, show preview URL
       if (EMAIL_PROVIDER === 'ethereal') {
         console.log(`📧 Preview: ${nodemailer.getTestMessageUrl(info)}`);
       } else {
