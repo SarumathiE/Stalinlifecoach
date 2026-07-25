@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
 const connectDB = require('./config/db');
 
 // Load environment variables
@@ -19,9 +21,9 @@ app.use(cors({
     'http://localhost:5173',
     'http://localhost:3000',
     'http://localhost:5174',
-    'https://stalinlifecoach.vercel.app',      // ✅ Add this
-    'https://stalinlifecoach-navy.vercel.app', // ✅ Add this
-    'https://stalinlifecoach-git-main.sarumathie.vercel.app' // ✅ If exists
+    'https://stalinlifecoach.vercel.app',
+    'https://stalinlifecoach-navy.vercel.app',
+    'https://stalinlifecoach-git-main.sarumathie.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -41,8 +43,58 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// ============================================
+// ROUTES
+// ============================================
+
+// ✅ Appointment Routes
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
+
+// ✅ Email Logs Route - View saved emails
+app.get('/api/email-logs', (req, res) => {
+  try {
+    const logPath = path.join(__dirname, 'email-logs.txt');
+    if (fs.existsSync(logPath)) {
+      const logs = fs.readFileSync(logPath, 'utf8');
+      res.send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Email Logs - Stalin Life Coach</title>
+          <style>
+            body { font-family: monospace; padding: 20px; background: #f5f5f5; }
+            .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+            h1 { color: #5E35B1; }
+            pre { white-space: pre-wrap; word-wrap: break-word; background: #f8f5ff; padding: 15px; border-radius: 8px; border-left: 4px solid #7C4DFF; }
+            .timestamp { color: #888; font-size: 12px; }
+            hr { border: 1px solid #eee; margin: 20px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>📧 Email Logs</h1>
+            <p class="timestamp">Last updated: ${new Date().toISOString()}</p>
+            <hr>
+            <pre>${logs}</pre>
+          </div>
+        </body>
+        </html>
+      `);
+    } else {
+      res.send(`
+        <html>
+        <head><title>Email Logs</title></head>
+        <body style="font-family: monospace; padding: 20px;">
+          <h1>📧 No Email Logs Found</h1>
+          <p>Book an appointment first to generate email logs.</p>
+        </body>
+        </html>
+      `);
+    }
+  } catch (error) {
+    res.status(500).send(`Error reading logs: ${error.message}`);
+  }
+});
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -55,7 +107,8 @@ app.get('/api/health', (req, res) => {
       health: '/api/health',
       appointments: '/api/appointments',
       create: '/api/appointments/create',
-      getAll: '/api/appointments'
+      getAll: '/api/appointments',
+      emailLogs: '/api/email-logs'
     }
   });
 });
@@ -78,7 +131,10 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server
+// ============================================
+// START SERVER
+// ============================================
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log('═══════════════════════════════════════════');
@@ -86,5 +142,6 @@ app.listen(PORT, () => {
   console.log('═══════════════════════════════════════════');
   console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
   console.log(`📝 Appointments API: http://localhost:${PORT}/api/appointments`);
+  console.log(`📧 Email Logs: http://localhost:${PORT}/api/email-logs`);
   console.log('═══════════════════════════════════════════');
 });
