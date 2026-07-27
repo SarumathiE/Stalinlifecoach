@@ -8,9 +8,27 @@ const path = require("path");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Change this once your domain is verified in Resend.
-// Until then, this MUST stay as onboarding@resend.dev
-const FROM_ADDRESS = "Stalin Life Coach <onboarding@resend.dev>";// ============================================
+// ============================================
+// FROM ADDRESS (fixed - your business's permanent sending address)
+// ============================================
+// This is ALWAYS the same for every email you send, no matter who
+// the client is. It represents "Stalin Life Coach", not the client.
+//
+// ⚠️ Until you verify a domain on resend.com/domains, this MUST stay
+// as onboarding@resend.dev (Resend's shared test address). If you
+// change this to something like noreply@stalinlifecoach.com BEFORE
+// the domain shows "Verified" in Resend, ALL emails will fail.
+//
+// Once verified, change ONLY this one line:
+// const FROM_ADDRESS = "Stalin Life Coach <noreply@stalinlifecoach.com>";
+const FROM_ADDRESS = "Stalin Life Coach <onboarding@resend.dev>";
+
+// NOTE: The recipient ("to") is NOT set here — it's passed in dynamically
+// every time sendEmail() is called (see appointments.js), using each
+// client's own email address, or the admin's email. That part already
+// works correctly and needs no changes.
+
+// ============================================
 // SEND EMAIL
 // ============================================
 
