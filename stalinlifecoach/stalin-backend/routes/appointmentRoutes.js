@@ -62,7 +62,7 @@ router.post('/create', async (req, res) => {
     // 1. SEND EMAIL TO CLIENT
     // ============================================
     try {
-      await sendEmail({
+      const clientEmail = await sendEmail({
         to: email,
         subject: '✅ Appointment Confirmation - Stalin Life Coach',
         html: `
@@ -90,7 +90,7 @@ router.post('/create', async (req, res) => {
               <div class="content">
                 <h2>Hello ${name}! 👋</h2>
                 <p>Your appointment has been successfully booked. Here are the details:</p>
-                
+
                 <div class="details">
                   <div class="row">
                     <span class="label">📋 Booking ID</span>
@@ -131,7 +131,12 @@ router.post('/create', async (req, res) => {
           </html>
         `
       });
-      console.log(`✅ Client email sent to ${email}`);
+
+      if (clientEmail.success) {
+        console.log(`✅ Client email sent to ${email}`);
+      } else {
+        console.log(`❌ Client email failed: ${clientEmail.error}`);
+      }
     } catch (emailError) {
       console.log('⚠️ Client email error:', emailError.message);
     }
@@ -140,7 +145,7 @@ router.post('/create', async (req, res) => {
     // 2. SEND EMAIL TO ADMIN
     // ============================================
     try {
-      await sendEmail({
+      const adminEmail = await sendEmail({
         to: 'stalinlifecoach77@gmail.com',
         subject: '🔔 New Appointment Booking - Stalin Life Coach',
         html: `
@@ -226,7 +231,12 @@ router.post('/create', async (req, res) => {
           </html>
         `
       });
-      console.log(`✅ Admin email sent to stalinlifecoach77@gmail.com`);
+
+      if (adminEmail.success) {
+        console.log('✅ Admin email sent');
+      } else {
+        console.log(`❌ Admin email failed: ${adminEmail.error}`);
+      }
     } catch (adminEmailError) {
       console.log('⚠️ Admin email error:', adminEmailError.message);
     }
