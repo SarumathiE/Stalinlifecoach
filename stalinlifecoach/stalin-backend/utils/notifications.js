@@ -10,8 +10,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Change this once your domain is verified in Resend.
 // Until then, this MUST stay as onboarding@resend.dev
-const FROM_ADDRESS = "Stalin Life Coach <noreply@stalinlifecoach.com>"; // example — use YOUR real domain
-// ============================================
+const FROM_ADDRESS = "Stalin Life Coach <onboarding@resend.dev>";// ============================================
 // SEND EMAIL
 // ============================================
 
