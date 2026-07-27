@@ -1,58 +1,67 @@
-const nodemailer = require('nodemailer');
-const fs = require('fs');
-const path = require('path');
+const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
 
 // ============================================
-// EMAIL PROVIDER SELECTION
+// EMAIL PROVIDER
 // ============================================
 
-const EMAIL_PROVIDER = process.env.EMAIL_PROVIDER || 'console';
+const EMAIL_PROVIDER = process.env.EMAIL_PROVIDER || "gmail";
 
 // ============================================
 // CREATE TRANSPORTER
 // ============================================
 
 const createTransporter = async () => {
+  console.log("═══════════════════════════════════════");
+  console.log("📧 EMAIL CONFIGURATION");
+  console.log("Provider:", process.env.EMAIL_PROVIDER);
+  console.log("User:", process.env.EMAIL_USER);
+  console.log("Password Exists:", !!process.env.EMAIL_PASS);
+  console.log("═══════════════════════════════════════");
+
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.log('⚠️ Email credentials not configured. Using console log only.');
+    console.log("❌ EMAIL_USER or EMAIL_PASS is missing.");
     return null;
   }
 
-  console.log('✅ Email configured for:', process.env.EMAIL_USER);
+  try {
+    let transporter;
 
-  // ✅ Gmail SMTP
-  if (EMAIL_PROVIDER === 'gmail') {
-    return nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      },
-      tls: { rejectUnauthorized: false },
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000
-    });
+    if (EMAIL_PROVIDER === "gmail") {
+      transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+    } else if (EMAIL_PROVIDER === "ethereal") {
+      const testAccount = await nodemailer.createTestAccount();
+
+      transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: {
+          user: testAccount.user,
+          pass: testAccount.pass,
+        },
+      });
+    } else {
+      console.log("❌ Unknown email provider:", EMAIL_PROVIDER);
+      return null;
+    }
+
+    await transporter.verify();
+    console.log("✅ SMTP Connection Successful");
+
+    return transporter;
+  } catch (error) {
+    console.log("❌ SMTP Configuration Error");
+    console.log(error.message);
+    return null;
   }
-
-  // ✅ Ethereal (Free test email - no DNS needed!)
-  if (EMAIL_PROVIDER === 'ethereal') {
-    const testAccount = await nodemailer.createTestAccount();
-    console.log('✅ Ethereal account created');
-    return nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass
-      }
-    });
-  }
-
-  return null;
 };
 
 // ============================================
@@ -60,76 +69,93 @@ const createTransporter = async () => {
 // ============================================
 
 const sendEmail = async ({ to, subject, html }) => {
-  // ✅ 1. Always log to console
-  console.log('═══════════════════════════════════════');
-  console.log('📧 EMAIL NOTIFICATION');
-  console.log(`📧 To: ${to}`);
-  console.log(`📧 Subject: ${subject}`);
-  console.log(`📧 Body Preview: ${html ? html.substring(0, 300) : 'No content'}...`);
-  console.log('═══════════════════════════════════════');
+  console.log("═══════════════════════════════════════");
+  console.log("📧 EMAIL REQUEST");
+  console.log("To:", to);
+  console.log("Subject:", subject);
+  console.log("═══════════════════════════════════════");
 
-  // ✅ 2. Always save to file
   try {
-    const emailLog = `\n[${new Date().toISOString()}]\nTo: ${to}\nSubject: ${subject}\nBody: ${html}\n---\n`;
-    fs.appendFileSync(path.join(__dirname, '../email-logs.txt'), emailLog);
-    console.log('💾 Email saved to email-logs.txt');
-  } catch (fileError) {
-    console.log('⚠️ Could not save to file:', fileError.message);
+    const logData = `
+====================================
+Date : ${new Date().toLocaleString()}
+To : ${to}
+Subject : ${subject}
+
+${html}
+
+====================================
+`;
+
+    fs.appendFileSync(
+      path.join(__dirname, "../email-logs.txt"),
+      logData
+    );
+  } catch (err) {
+    console.log("Email log error:", err.message);
   }
 
-  // ✅ 3. Try to send real email
-  try {
-    const transporter = await createTransporter();
-    
-    if (transporter) {
-      const mailOptions = {
-        from: process.env.EMAIL_USER || 'stalinlifecoach77@gmail.com',
-        to: to,
-        subject: subject,
-        html: html
-      };
+  const transporter = await createTransporter();
 
-      const info = await transporter.sendMail(mailOptions);
-      console.log(`✅ Real email sent to ${to}`);
-      
-      if (EMAIL_PROVIDER === 'ethereal') {
-        console.log(`📧 Preview: ${nodemailer.getTestMessageUrl(info)}`);
-      } else {
-        console.log(`📧 Message ID: ${info.messageId}`);
-      }
-      
-      return { success: true, real: true, messageId: info.messageId };
-    }
-  } catch (emailError) {
-    console.log('⚠️ Real email failed:', emailError.message);
-    console.log('💡 Email saved to file. Check email-logs.txt');
+  if (!transporter) {
+    return {
+      success: false,
+      message: "Email transporter not available",
+    };
   }
 
-  // ✅ 4. Always return success (even if email fails)
-  return { success: true, simulated: true, saved: true };
+  try {
+    const info = await transporter.sendMail({
+      from: `"Stalin Life Coach" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
+      html,
+    });
+
+    console.log("✅ Email Sent Successfully");
+    console.log("Message ID:", info.messageId);
+
+    return {
+      success: true,
+      messageId: info.messageId,
+    };
+  } catch (err) {
+    console.log("❌ Email Sending Failed");
+    console.log(err);
+
+    return {
+      success: false,
+      error: err.message,
+    };
+  }
 };
 
 // ============================================
-// SEND WHATSAPP
+// WHATSAPP
 // ============================================
 
 const sendWhatsApp = async ({ phone, message }) => {
   try {
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phone || '919943853567'}?text=${encodedMessage}`;
-    
-    console.log(`📱 WhatsApp Link: ${whatsappUrl}`);
-    console.log(`💡 Open this link in browser to send WhatsApp message`);
-    
-    return { success: true, url: whatsappUrl };
-  } catch (error) {
-    console.error('❌ WhatsApp error:', error);
-    return { success: false, error: error.message };
+    const url = `https://wa.me/${
+      phone || process.env.WHATSAPP_NUMBER
+    }?text=${encodeURIComponent(message)}`;
+
+    console.log("📱 WhatsApp URL:");
+    console.log(url);
+
+    return {
+      success: true,
+      url,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: err.message,
+    };
   }
 };
 
-// ============================================
-// EXPORT
-// ============================================
-
-module.exports = { sendEmail, sendWhatsApp };
+module.exports = {
+  sendEmail,
+  sendWhatsApp,
+};
