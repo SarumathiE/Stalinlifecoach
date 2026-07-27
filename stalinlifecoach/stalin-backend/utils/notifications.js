@@ -12,7 +12,7 @@ const EMAIL_PROVIDER = process.env.EMAIL_PROVIDER || "gmail";
 // CREATE TRANSPORTER
 // ============================================
 
-const createTransporter = async () => {
+const createTransporter = () => {
   console.log("═══════════════════════════════════════");
   console.log("📧 EMAIL CONFIGURATION");
   console.log("Provider:", process.env.EMAIL_PROVIDER);
@@ -25,43 +25,30 @@ const createTransporter = async () => {
     return null;
   }
 
-  try {
-    let transporter;
-
-    if (EMAIL_PROVIDER === "gmail") {
-      transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      });
-    } else if (EMAIL_PROVIDER === "ethereal") {
-      const testAccount = await nodemailer.createTestAccount();
-
-      transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
-        auth: {
-          user: testAccount.user,
-          pass: testAccount.pass,
-        },
-      });
-    } else {
-      console.log("❌ Unknown email provider:", EMAIL_PROVIDER);
-      return null;
-    }
-
-    await transporter.verify();
-    console.log("✅ SMTP Connection Successful");
-
-    return transporter;
-  } catch (error) {
-    console.log("❌ SMTP Configuration Error");
-    console.log(error.message);
-    return null;
+  if (EMAIL_PROVIDER === "gmail") {
+    return nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
   }
+
+  if (EMAIL_PROVIDER === "ethereal") {
+    return nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+  }
+
+  console.log("❌ Unknown Email Provider");
+  return null;
 };
 
 // ============================================
@@ -92,15 +79,15 @@ ${html}
       logData
     );
   } catch (err) {
-    console.log("Email log error:", err.message);
+    console.log("Email Log Error:", err.message);
   }
 
-  const transporter = await createTransporter();
+  const transporter = createTransporter();
 
   if (!transporter) {
     return {
       success: false,
-      message: "Email transporter not available",
+      error: "Transporter not created",
     };
   }
 
@@ -121,7 +108,7 @@ ${html}
     };
   } catch (err) {
     console.log("❌ Email Sending Failed");
-    console.log(err);
+    console.log(err.message);
 
     return {
       success: false,
@@ -136,9 +123,9 @@ ${html}
 
 const sendWhatsApp = async ({ phone, message }) => {
   try {
-    const url = `https://wa.me/${
-      phone || process.env.WHATSAPP_NUMBER
-    }?text=${encodeURIComponent(message)}`;
+    const number = phone || process.env.WHATSAPP_NUMBER;
+
+    const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 
     console.log("📱 WhatsApp URL:");
     console.log(url);
@@ -148,6 +135,8 @@ const sendWhatsApp = async ({ phone, message }) => {
       url,
     };
   } catch (err) {
+    console.log("❌ WhatsApp Error:", err.message);
+
     return {
       success: false,
       error: err.message,
