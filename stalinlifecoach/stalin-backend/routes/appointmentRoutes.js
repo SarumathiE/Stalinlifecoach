@@ -59,7 +59,7 @@ router.post('/create', async (req, res) => {
     console.log('✅ Appointment saved:', appointment.bookingId);
 
     // ============================================
-    // 1. SEND EMAIL TO CLIENT
+    // 1. SEND EMAIL TO CLIENT (person who booked)
     // ============================================
     try {
       const clientEmail = await sendEmail({
@@ -146,7 +146,7 @@ router.post('/create', async (req, res) => {
     // ============================================
     try {
       const adminEmail = await sendEmail({
-        to: 'stalinlifecoach77@gmail.com',
+        to: process.env.ADMIN_EMAIL,
         subject: '🔔 New Appointment Booking - Stalin Life Coach',
         html: `
           <!DOCTYPE html>
