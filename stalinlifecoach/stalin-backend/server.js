@@ -18,10 +18,12 @@ dotenv.config();
 console.log('════════════ ENVIRONMENT VARIABLES ════════════');
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('EMAIL_PROVIDER:', process.env.EMAIL_PROVIDER);
-console.log('EMAIL_USER:', process.env.EMAIL_USER || '❌ Not Found');
-console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? '✅ Configured' : '❌ Not Found');
+// console.log('EMAIL_USER:', process.env.EMAIL_USER || '❌ Not Found');
+// console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? '✅ Configured' : '❌ Not Found');
 console.log('ADMIN_EMAIL:', process.env.ADMIN_EMAIL || '❌ Not Found');
 console.log('PORT:', process.env.PORT);
+console.log('RESEND_API_KEY:', process.env.RESEND_API_KEY ? '✅ Configured' : '❌ Not Found');
+console.log('EMAIL_FROM:', process.env.EMAIL_FROM || '❌ Not Found');
 console.log('═══════════════════════════════════════════════');
 
 // ============================================
@@ -142,13 +144,13 @@ app.get('/api/health', (req, res) => {
     status: 'OK',
     message: '🚀 Stalin Life Coach API Running',
     timestamp: new Date().toISOString(),
-    email: {
-      provider: process.env.EMAIL_PROVIDER || 'Not Configured',
-      configured: !!(
-        process.env.EMAIL_USER &&
-        process.env.EMAIL_PASS
-      )
-    },
+     email: {
+  provider: process.env.EMAIL_PROVIDER || 'Not Configured',
+  configured: !!process.env.RESEND_API_KEY,
+  from: process.env.EMAIL_FROM,
+},
+      
+    
     endpoints: {
       health: '/api/health',
       appointments: '/api/appointments',
@@ -214,9 +216,9 @@ app.listen(PORT, () => {
   console.log('═══════════════════════════════════════');
   console.log(`🚀 Server Started`);
   console.log(`🌐 Port : ${PORT}`);
-  console.log(`📧 Email Provider : ${process.env.EMAIL_PROVIDER}`);
-  console.log(`📧 Email User : ${process.env.EMAIL_USER || 'Not Configured'}`);
-  console.log(`📧 Email Password : ${process.env.EMAIL_PASS ? 'Configured' : 'Not Configured'}`);
-  console.log(`📧 Admin Email : ${process.env.ADMIN_EMAIL}`);
+console.log(`📧 Email Provider : ${process.env.EMAIL_PROVIDER}`);
+console.log(`📧 Email From : ${process.env.EMAIL_FROM}`);
+console.log(`🔑 Resend API Key : ${process.env.RESEND_API_KEY ? 'Configured' : 'Not Configured'}`);
+console.log(`📧 Admin Email : ${process.env.ADMIN_EMAIL}`);
   console.log('═══════════════════════════════════════');
 });
