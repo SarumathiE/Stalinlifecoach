@@ -131,11 +131,11 @@ router.post('/create', async (req, res) => {
           </html>
         `
       });
-      console.log(`✅ Client email sent to ${email}`);
-    } catch (emailError) {
-      console.log('⚠️ Client email error:', emailError.message);
-    }
-
+      if (clientEmail.success) {
+  console.log(`✅ Client email sent to ${email}`);
+} else {
+  console.log(`❌ Client email failed: ${clientEmail.error}`);
+}
     // ============================================
     // 2. SEND EMAIL TO ADMIN
     // ============================================
@@ -226,10 +226,11 @@ router.post('/create', async (req, res) => {
           </html>
         `
       });
-      console.log(`✅ Admin email sent to stalinlifecoach77@gmail.com`);
-    } catch (adminEmailError) {
-      console.log('⚠️ Admin email error:', adminEmailError.message);
-    }
+      if (adminEmail.success) {
+  console.log("✅ Admin email sent");
+} else {
+  console.log(`❌ Admin email failed: ${adminEmail.error}`);
+}
 
     // ============================================
     // 3. SEND WHATSAPP TO ADMIN
