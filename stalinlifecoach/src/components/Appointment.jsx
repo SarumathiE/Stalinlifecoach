@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { FaCalendarCheck, FaRupeeSign, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 
 const API_URL = "https://stalinlifecoach-api.onrender.com/api";
 
