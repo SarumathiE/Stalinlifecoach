@@ -8,9 +8,13 @@ export default defineConfig({
       input: {
         main: './index.html'
       }
-    }
+    },
+    // ✅ This ensures assets are copied correctly
+    assetsDir: 'assets'
   },
   server: {
     port: 5173
-  }
+  },
+  // ✅ Public directory for static files
+  publicDir: 'public'
 })
