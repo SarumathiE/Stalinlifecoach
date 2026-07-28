@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
   name: {
-    type: String,
-    required: [true, 'Please provide name'],
-    trim: true
+      type: Date,
+      required: [true, 'Please select date'],
+      trim: true
   },
   email: {
     type: String,

@@ -21,7 +21,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 //
 // Once verified, change ONLY this one line:
 // const FROM_ADDRESS = "Stalin Life Coach <noreply@stalinlifecoach.com>";
-const FROM_ADDRESS = process.env.EMAIL_FROM ||"Stalin Life Coach <onboarding@resend.dev>";
+const FROM_ADDRESS = process.env.EMAIL_FROM || "Stalin Life Coach <noreply@stalinlifecoach.com>";
 // NOTE: The recipient ("to") is NOT set here — it's passed in dynamically
 // every time sendEmail() is called (see appointments.js), using each
 // client's own email address, or the admin's email. That part already
