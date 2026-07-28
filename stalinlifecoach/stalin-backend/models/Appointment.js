@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
   name: {
-      type: Date,
+      type: String,
       required: [true, 'Please select date'],
       trim: true
   },
