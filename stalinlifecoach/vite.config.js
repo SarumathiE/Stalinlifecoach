@@ -9,12 +9,11 @@ export default defineConfig({
         main: './index.html'
       }
     },
-    // ✅ This ensures assets are copied correctly
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    copyPublicDir: true  // ✅ This ensures public folder is copied
   },
   server: {
     port: 5173
   },
-  // ✅ Public directory for static files
-  publicDir: 'public'
+  publicDir: 'public'   // ✅ Ensure public folder is used
 })
