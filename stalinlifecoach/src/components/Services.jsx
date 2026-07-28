@@ -16,6 +16,12 @@ import {
   FaUserFriends,
   FaFire,
   FaDove,
+  FaCrown,
+  FaGem,
+  FaUserTie,
+  FaGraduationCap,
+  FaBookOpen,
+  FaMeditation,
   FaSpinner
 } from "react-icons/fa";
 import { useState } from "react";
@@ -33,16 +39,16 @@ function Services() {
       icon: <FaHeartbeat />,
       title: "Health",
       subtitle: "Vitality & Wellness",
-      description: "Health. Wealth. Prosperity. True success comes when your body is healthy, your mind is calm, and your soul is aligned with purpose and abundance.",
+      description: "Transform Your Life Through Science, Spirituality & Coaching. True success comes when your body is healthy, your mind is calm, and your soul is aligned with purpose and abundance.",
       color: "#4ECDC4",
       gradient: "linear-gradient(135deg, #4ECDC4, #44B39D)",
       details: {
-        overview: "Health is the foundation of a fulfilling life. When your body and mind are in harmony, you can achieve anything.",
+        overview: "Health is the foundation of a fulfilling life. When your body and mind are in harmony, you can achieve anything. This program combines science-based wellness practices with spiritual wisdom to help you achieve optimal vitality.",
         topics: [
-          { icon: <FaHeartbeat />, title: "Physical Vitality", desc: "Improve your physical health and energy levels" },
-          { icon: <FaLeaf />, title: "Mental Wellness", desc: "Achieve mental clarity and emotional balance" },
-          { icon: <FaSun />, title: "Holistic Health", desc: "Integrate body, mind, and spirit for overall wellness" },
-          { icon: <FaMoon />, title: "Sleep Optimization", desc: "Improve sleep quality for better health" }
+          { icon: <FaHeartbeat />, title: "Physical Vitality", desc: "Optimize your physical health, energy levels, and overall well-being" },
+          { icon: <FaLeaf />, title: "Mental Wellness", desc: "Achieve mental clarity, emotional balance, and inner peace" },
+          { icon: <FaSun />, title: "Holistic Health", desc: "Integrate body, mind, and spirit for complete wellness" },
+          { icon: <FaMoon />, title: "Sleep & Energy Optimization", desc: "Improve sleep quality, restore energy, and enhance daily performance" }
         ]
       }
     },
@@ -51,16 +57,16 @@ function Services() {
       icon: <FaWallet />,
       title: "Wealth",
       subtitle: "Financial Freedom & Prosperity",
-      description: "Health. Wealth. Prosperity. Financial freedom and abundance in all areas of life.",
+      description: "Health. Wealth. Prosperity. Financial freedom and abundance in all areas of life. Build a wealth mindset and create lasting prosperity.",
       color: "#FFA94D",
       gradient: "linear-gradient(135deg, #FFA94D, #FF8C00)",
       details: {
-        overview: "Wealth is not just about money — it's about creating a life of abundance, security, and choices.",
+        overview: "Wealth is not just about money — it's about creating a life of abundance, security, and choices. This program helps you develop a prosperity mindset and build sustainable wealth.",
         topics: [
-          { icon: <FaChartLine />, title: "Financial Freedom", desc: "Achieve financial independence and security" },
-          { icon: <FaStar />, title: "Abundance Mindset", desc: "Develop a mindset of growth and prosperity" },
-          { icon: <FaWallet />, title: "Wealth Creation", desc: "Build wealth through smart strategies" },
-          { icon: <FaRocket />, title: "Passive Income", desc: "Create multiple streams of passive income" }
+          { icon: <FaChartLine />, title: "Financial Freedom", desc: "Achieve financial independence and live life on your terms" },
+          { icon: <FaStar />, title: "Abundance Mindset", desc: "Develop a mindset of growth, prosperity, and unlimited potential" },
+          { icon: <FaWallet />, title: "Wealth Creation", desc: "Build sustainable wealth through smart strategies" },
+          { icon: <FaRocket />, title: "Prosperity Mindset", desc: "Create multiple streams of income and financial abundance" }
         ]
       }
     },
@@ -69,89 +75,89 @@ function Services() {
       icon: <FaRocket />,
       title: "Prosperity",
       subtitle: "Growth, Impact & Legacy",
-      description: "Health. Wealth. Prosperity. Creating a life of purpose, balance and abundance.",
+      description: "Health. Wealth. Prosperity. Creating a life of purpose, balance and abundance. Live with impact and leave a lasting legacy.",
       color: "#7C4DFF",
       gradient: "linear-gradient(135deg, #7C4DFF, #5E35B1)",
       details: {
-        overview: "Prosperity goes beyond wealth — it's about creating meaningful impact, building a legacy, and living a life of purpose.",
+        overview: "Prosperity goes beyond wealth — it's about creating meaningful impact, building a legacy, and living a life of purpose. This program helps you discover your unique gifts and use them to make a difference.",
         topics: [
-          { icon: <FaCompass />, title: "Life Purpose", desc: "Discover your true purpose and mission" },
-          { icon: <FaUsers />, title: "Leadership & Impact", desc: "Build leadership skills and create lasting impact" },
-          { icon: <FaStar />, title: "Legacy Building", desc: "Create a meaningful legacy that inspires others" },
-          { icon: <FaBrain />, title: "Personal Growth", desc: "Achieve personal and professional growth" }
+          { icon: <FaCompass />, title: "Life Purpose", desc: "Discover your true purpose and live a life of meaning" },
+          { icon: <FaUsers />, title: "Leadership & Impact", desc: "Build leadership skills to inspire and empower others" },
+          { icon: <FaStar />, title: "Legacy Building", desc: "Create a meaningful legacy that will inspire generations" },
+          { icon: <FaCrown />, title: "Personal Excellence", desc: "Achieve excellence in every area of your life" }
         ]
       }
     }
   ];
 
   // ============================================
-  // FRAMEWORK - Surveil, Healing, Awakening, Integration
+  // FRAMEWORK - Surveil, Heal, Awaken, Integrate
   // ============================================
   const frameworkServices = [
     {
       id: "surveil",
       icon: <FaCompass />,
       title: "SURVEIL",
-      subtitle: "Gain Clarity",
-      description: "Observe your life with awareness. Understand your current state and what truly matters.",
+      subtitle: "Gain Awareness",
+      description: "Every transformation begins with awareness. Understand your current patterns, emotions, habits, beliefs, and opportunities for growth.",
       color: "#4ECDC4",
       details: {
-        overview: "Surveil is about gaining clarity on your life. You observe your current situation with awareness.",
+        overview: "Surveil is about gaining clarity on your life. You observe your current situation with awareness and identify what truly matters.",
         benefits: [
-          "Self-awareness and observation",
-          "Understanding your current state",
-          "Identifying what truly matters",
-          "Clarity on life direction"
+          "Deep self-awareness and observation",
+          "Understanding your current life state",
+          "Identifying what truly matters to you",
+          "Clarity on life direction and purpose"
         ]
       }
     },
     {
-      id: "healing",
+      id: "heal",
       icon: <FaLeaf />,
-      title: "HEALING",
-      subtitle: "Restore & Renew",
-      description: "Heal your body, mind, and emotions. Release what holds you back and restore your balance.",
+      title: "HEAL",
+      subtitle: "Release & Renew",
+      description: "Let go of limiting beliefs, emotional blocks, and unhealthy habits that prevent your growth. This stage focuses on inner renewal through coaching and transformational practices.",
       color: "#74B9FF",
       details: {
-        overview: "Healing is about restoring your body, mind, and emotions. You release what holds you back.",
+        overview: "Healing is about releasing what holds you back. Through coaching and transformational practices, you restore your balance and inner peace.",
         benefits: [
-          "Emotional healing and release",
-          "Physical and mental restoration",
-          "Overcoming past trauma",
-          "Inner peace and balance"
+          "Emotional balance and inner peace",
+          "Stress management and resilience",
+          "Release of limiting beliefs",
+          "Renewed energy and vitality"
         ]
       }
     },
     {
-      id: "awakening",
+      id: "awaken",
       icon: <FaSun />,
-      title: "AWAKENING",
-      subtitle: "Discover Your True Self",
-      description: "Awaken your inner potential. Connect with your purpose and step into a higher awareness.",
+      title: "AWAKEN",
+      subtitle: "Unlock Your Potential",
+      description: "Reconnect with your authentic self and awaken the potential that already exists within you. Develop confidence, purpose, creativity, and higher awareness.",
       color: "#FFA94D",
       details: {
-        overview: "Awakening is about discovering your true self. You awaken your inner potential.",
+        overview: "Awakening is about discovering your true self. You connect with your purpose and step into a higher state of awareness.",
         benefits: [
-          "Discovering your true self",
+          "Discovering your authentic self",
           "Connecting with life purpose",
           "Higher awareness and consciousness",
-          "Personal transformation"
+          "Personal transformation and growth"
         ]
       }
     },
     {
-      id: "integration",
+      id: "integrate",
       icon: <FaBalanceScale />,
-      title: "INTEGRATION",
-      subtitle: "Align & Live with Purpose",
-      description: "Integrate all areas of life in harmony and create sustainable growth, impact, and abundance.",
+      title: "INTEGRATE",
+      subtitle: "Live Your Transformation",
+      description: "Apply your new mindset and habits into everyday life to create sustainable success, meaningful relationships, and long-term fulfillment.",
       color: "#A29BFE",
       details: {
-        overview: "Integration is about bringing everything together. You align all areas of your life.",
+        overview: "Integration is about bringing everything together. You align all areas of your life and create sustainable growth.",
         benefits: [
-          "Life integration and harmony",
+          "Work-life balance and harmony",
+          "Healthy relationships and connections",
           "Sustainable growth and success",
-          "Creating impact and legacy",
           "Living with purpose and abundance"
         ]
       }
@@ -159,176 +165,207 @@ function Services() {
   ];
 
   // ============================================
-  // LMS - Awakening, Alignment, Transformation, Mastery, Cosmic Conscious
+  // TRANSFORMATION JOURNEY (Instead of LMS)
   // ============================================
-  const lmsServices = [
+  const transformationJourney = [
     {
-      id: "awakening-lms",
+      id: "awakening-journey",
       icon: <FaStar />,
       title: "AWAKENING",
-      description: "Awaken your inner awareness and discover your true potential.",
+      description: "Discover your authentic self and awaken your inner potential.",
       color: "#FF6B6B",
       details: {
-        overview: "Awaken your inner awareness and discover your true potential.",
+        overview: "Awaken your inner awareness and discover your true potential. This is the first step in your transformation journey.",
         benefits: ["Self-discovery", "Inner awareness", "Potential identification"]
       }
     },
     {
-      id: "alignment-lms",
+      id: "alignment-journey",
       icon: <FaCompass />,
       title: "ALIGNMENT",
-      description: "Align your thoughts, values, and actions with your life purpose.",
+      description: "Align your thoughts, emotions, beliefs, and actions with your life purpose.",
       color: "#4ECDC4",
       details: {
-        overview: "Align your thoughts, values, and actions with your life purpose.",
+        overview: "Align your thoughts, values, and actions with your life purpose to create harmony and direction.",
         benefits: ["Value alignment", "Purpose-driven action", "Life harmony"]
       }
     },
     {
-      id: "transformation-lms",
+      id: "transformation-journey",
       icon: <FaRocket />,
       title: "TRANSFORMATION",
-      description: "Transform your mindset, habits, and energy to create a better you.",
+      description: "Create powerful and lasting change in your mindset, habits, and energy.",
       color: "#FFA94D",
       details: {
-        overview: "Transform your mindset, habits, and energy to create lasting positive change.",
+        overview: "Transform your mindset, habits, and energy to create lasting positive change in your life.",
         benefits: ["Mindset transformation", "Habit change", "Energy management"]
       }
     },
     {
-      id: "mastery-lms",
+      id: "mastery-journey",
       icon: <FaBrain />,
       title: "MASTERY",
-      description: "Master your emotions, decisions, and destiny with confidence.",
+      description: "Master your mindset, emotions, and decisions with confidence and clarity.",
       color: "#A29BFE",
       details: {
-        overview: "Master your emotions, decisions, and destiny. Develop confidence.",
+        overview: "Master your emotions, decisions, and destiny. Develop confidence and take control of your life.",
         benefits: ["Emotional mastery", "Decision-making", "Destiny control"]
       }
     },
     {
-      id: "cosmic-lms",
+      id: "conscious-journey",
       icon: <FaSun />,
-      title: "COSMIC CONSCIOUS",
-      description: "Experience a higher state of consciousness and live with impact.",
+      title: "CONSCIOUS LIVING",
+      description: "Live intentionally with purpose, impact, and fulfillment.",
       color: "#7C4DFF",
       details: {
-        overview: "Experience a higher state of consciousness and live with purpose.",
+        overview: "Experience a higher state of consciousness and live with purpose and impact.",
         benefits: ["Higher consciousness", "Purposeful living", "Global impact"]
       }
     }
   ];
 
   // ============================================
-  // RESULT PROGRAMS
+  // SIGNATURE COACHING PROGRAMS
   // ============================================
-  const resultPrograms = [
+  const signaturePrograms = [
     {
-      id: "sleep",
+      id: "sleep-energy",
       icon: <FaMoon />,
-      title: "Sleep",
-      description: "Overcome sleep problems and achieve restful, rejuvenating sleep.",
+      title: "Sleep & Energy Optimization",
+      description: "Improve sleep habits, restore energy, and enhance daily performance through healthy lifestyle practices and coaching.",
       color: "#74B9FF",
       details: {
-        overview: "This program helps you overcome sleep problems.",
-        benefits: ["Better sleep quality", "Sleep routine", "Rest and recovery"]
+        overview: "This program helps you optimize your sleep habits and energy levels for peak daily performance.",
+        benefits: ["Better sleep quality", "Increased daily energy", "Improved focus and productivity"]
       }
     },
     {
-      id: "relationship",
+      id: "relationship-communication",
       icon: <FaUserFriends />,
-      title: "Relationship Problems",
-      description: "Build healthier, more meaningful relationships through improved communication.",
+      title: "Relationship & Communication Coaching",
+      description: "Strengthen personal and professional relationships through emotional intelligence, communication, and self-awareness.",
       color: "#FD79A8",
       details: {
-        overview: "This program helps you build healthier relationships.",
-        benefits: ["Better communication", "Emotional intelligence", "Stronger connections"]
+        overview: "This program helps you build healthier, more meaningful relationships through improved communication.",
+        benefits: ["Better communication skills", "Emotional intelligence", "Stronger connections"]
       }
     },
     {
-      id: "worklife",
+      id: "worklife-balance",
       icon: <FaBalanceScale />,
-      title: "Work-Life Balance",
-      description: "Achieve harmony between your professional ambitions and personal well-being.",
+      title: "Work-Life Balance Coaching",
+      description: "Create harmony between your career, family, health, and personal growth.",
       color: "#FFA94D",
       details: {
-        overview: "This program helps you achieve work-life harmony.",
+        overview: "This program helps you achieve harmony between your professional ambitions and personal well-being.",
         benefits: ["Reduced burnout", "Better time management", "Work-life harmony"]
       }
     },
     {
-      id: "career",
+      id: "career-purpose",
       icon: <FaChartLine />,
-      title: "Career Misalignment",
-      description: "Discover your strengths and achieve professional success with clarity.",
+      title: "Career & Purpose Coaching",
+      description: "Gain clarity about your strengths, career direction, and meaningful goals.",
       color: "#4ECDC4",
       details: {
-        overview: "This program helps you discover your strengths.",
+        overview: "This program helps you discover your strengths and achieve professional success with clarity.",
         benefits: ["Career clarity", "Strength discovery", "Professional success"]
       }
     },
     {
-      id: "burnout",
+      id: "stress-resilience",
       icon: <FaFire />,
-      title: "Burnout Recovery",
-      description: "Recover from burnout and build sustainable energy and resilience.",
+      title: "Stress & Resilience Coaching",
+      description: "Build resilience, manage stress effectively, and develop healthy coping strategies for everyday challenges.",
       color: "#FF6B6B",
       details: {
-        overview: "This program helps you recover from burnout.",
-        benefits: ["Burnout recovery", "Energy management", "Resilience building"]
+        overview: "This program helps you build resilience and manage stress effectively.",
+        benefits: ["Stress management", "Resilience building", "Healthy coping strategies"]
       }
     },
     {
-      id: "emotional",
+      id: "emotional-intelligence",
       icon: <FaHandHoldingHeart />,
-      title: "Emotional Turmoil",
-      description: "Develop emotional intelligence to navigate life's challenges with confidence.",
+      title: "Emotional Intelligence Coaching",
+      description: "Understand and manage emotions, improve relationships, and respond to life with confidence and awareness.",
       color: "#A29BFE",
       details: {
-        overview: "This program develops your emotional intelligence.",
+        overview: "This program develops your emotional intelligence to navigate life's challenges with confidence.",
         benefits: ["Emotional intelligence", "Confidence building", "Challenge navigation"]
       }
     }
   ];
 
   // ============================================
-  // SERVICES LIST
+  // PREMIUM SERVICES LIST
   // ============================================
-  const servicesList = [
+  const premiumServices = [
     {
-      id: "coaching-1on1",
+      id: "one-on-one-coaching",
       icon: <FaUsers />,
-      title: "1:1 Coaching",
-      description: "Personalized guidance to help you achieve your goals.",
-      color: "#7C4DFF"
+      title: "1:1 Life Coaching",
+      description: "Personalized coaching designed around your goals, challenges, and transformation journey.",
+      color: "#7C4DFF",
+      details: {
+        overview: "Personalized one-on-one coaching designed around your unique goals, challenges, and transformation journey.",
+        benefits: ["Personalized approach", "Expert guidance", "Results-driven coaching"]
+      }
     },
     {
-      id: "workshops",
-      icon: <FaUsers />,
-      title: "Workshops & Seminars",
-      description: "Interactive sessions that inspire, educate and empower.",
-      color: "#4ECDC4"
+      id: "executive-leadership",
+      icon: <FaUserTie />,
+      title: "Executive & Leadership Coaching",
+      description: "Develop leadership presence, communication, decision-making, and high-performance habits.",
+      color: "#4ECDC4",
+      details: {
+        overview: "Develop leadership presence, communication, decision-making, and high-performance habits.",
+        benefits: ["Leadership presence", "Decision-making", "High-performance habits"]
+      }
     },
     {
-      id: "assessments",
-      icon: <FaChartLine />,
-      title: "Assessments",
-      description: "In-depth assessments to understand yourself better.",
-      color: "#FFA94D"
+      id: "personal-transformation",
+      icon: <FaCrown />,
+      title: "Personal Transformation Programs",
+      description: "Structured coaching journeys focused on sustainable growth and meaningful life change.",
+      color: "#FFA94D",
+      details: {
+        overview: "Structured coaching journeys focused on sustainable growth and meaningful life change.",
+        benefits: ["Sustainable growth", "Meaningful change", "Structured journey"]
+      }
     },
     {
-      id: "online-programs",
-      icon: <FaRocket />,
-      title: "Online Programs",
-      description: "Structured programs designed for real life transformation.",
-      color: "#A29BFE"
+      id: "workshops-training",
+      icon: <FaGraduationCap />,
+      title: "Workshops & Corporate Training",
+      description: "Interactive sessions on leadership, mindset, emotional intelligence, productivity, and personal excellence.",
+      color: "#A29BFE",
+      details: {
+        overview: "Interactive sessions on leadership, mindset, emotional intelligence, productivity, and personal excellence.",
+        benefits: ["Leadership development", "Mindset training", "Emotional intelligence"]
+      }
     },
     {
-      id: "resource-library",
+      id: "assessments-blueprint",
+      icon: <FaBookOpen />,
+      title: "Assessments & Growth Blueprint",
+      description: "Identify your strengths, values, personality, and growth opportunities with comprehensive assessments.",
+      color: "#74B9FF",
+      details: {
+        overview: "Identify your strengths, values, personality, and growth opportunities with comprehensive assessments.",
+        benefits: ["Strength identification", "Value discovery", "Actionable insights"]
+      }
+    },
+    {
+      id: "digital-learning",
       icon: <FaLightbulb />,
-      title: "Resource Library",
-      description: "Access tools, guides and resources anytime, anywhere.",
-      color: "#74B9FF"
+      title: "Digital Learning Academy",
+      description: "Access online courses, masterclasses, guided exercises, and practical resources anytime.",
+      color: "#00B894",
+      details: {
+        overview: "Access online courses, masterclasses, guided exercises, and practical resources anytime.",
+        benefits: ["Flexible learning", "Expert content", "Self-paced growth"]
+      }
     }
   ];
 
@@ -347,11 +384,11 @@ function Services() {
     <>
       <section className="services" id="services">
         <div className="services-header">
-          <span className="services-tag">🚀 My Framework</span>
+          <span className="services-tag">🚀 Transform Your Life</span>
           <h2>Health. Wealth. Prosperity.</h2>
           <p>
-            True success comes when your body is healthy, your mind is calm, 
-            and your soul is aligned with purpose and abundance.
+            Transform your life through science, spirituality & coaching. 
+            Discover clarity, confidence, purpose, and lasting transformation.
           </p>
         </div>
 
@@ -377,7 +414,7 @@ function Services() {
 
         {/* Framework */}
         <div className="additional-programs">
-          <h3>My Framework for a Fulfilling Life</h3>
+          <h3>My Transformation Framework</h3>
           <div className="service-grid">
             {frameworkServices.map((item) => (
               <div className="service-card" key={item.id} onClick={() => openModal(item)}>
@@ -393,11 +430,11 @@ function Services() {
           </div>
         </div>
 
-        {/* LMS */}
+        {/* Transformation Journey */}
         <div className="additional-programs">
-          <h3>LMS - Your Transformation Journey</h3>
+          <h3>Your Transformation Journey</h3>
           <div className="service-grid">
-            {lmsServices.map((item) => (
+            {transformationJourney.map((item) => (
               <div className="service-card" key={item.id} onClick={() => openModal(item)}>
                 <div className="icon-wrapper" style={{ background: `${item.color}20` }}>
                   <div className="icon" style={{ color: item.color }}>{item.icon}</div>
@@ -410,11 +447,11 @@ function Services() {
           </div>
         </div>
 
-        {/* Result Programs */}
+        {/* Signature Programs */}
         <div className="additional-programs">
-          <h3>Result Programs</h3>
+          <h3>Signature Coaching Programs</h3>
           <div className="service-grid">
-            {resultPrograms.map((item) => (
+            {signaturePrograms.map((item) => (
               <div className="service-card" key={item.id} onClick={() => openModal(item)}>
                 <div className="icon-wrapper" style={{ background: `${item.color}20` }}>
                   <div className="icon" style={{ color: item.color }}>{item.icon}</div>
@@ -427,17 +464,16 @@ function Services() {
           </div>
         </div>
 
-        {/* Services List */}
+        {/* Premium Services */}
         <div className="additional-programs">
-          <h3>My Services</h3>
+          <h3>My Premium Services</h3>
           <div className="service-grid">
-            {servicesList.map((item) => {
-              // Create service with details for modal
+            {premiumServices.map((item) => {
               const serviceWithDetails = {
                 ...item,
                 details: {
                   overview: item.description,
-                  benefits: ['Personalized approach', 'Expert guidance', 'Results-driven']
+                  benefits: item.details?.benefits || ['Personalized approach', 'Expert guidance', 'Results-driven']
                 }
               };
               return (
@@ -455,7 +491,7 @@ function Services() {
         </div>
       </section>
 
-      {/* ===== MODAL ===== */}
+      {/* Modal */}
       {showModal && selectedService && (
         <div className="service-modal" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
