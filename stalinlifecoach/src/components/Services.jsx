@@ -21,7 +21,7 @@ import {
   FaUserTie,
   FaGraduationCap,
   FaBookOpen,
-  FaMeditation,
+  FaOm,
   FaSpinner
 } from "react-icons/fa";
 import { useState } from "react";
