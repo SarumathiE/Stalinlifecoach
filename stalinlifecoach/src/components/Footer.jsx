@@ -73,7 +73,8 @@ function Footer() {
         <hr />
         <p className="copyright">
           © 2026 Stalin Life Coach. All Rights Reserved.
-          <br />
+        </p>
+        <p className="dev-credit">
           Copyright belongs to Chez IT Solutions Pvt Ltd
         </p>
       </div>
