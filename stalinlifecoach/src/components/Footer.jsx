@@ -72,9 +72,8 @@ function Footer() {
         </div>
         <hr />
         <p className="copyright">
-          © 2026 Stalin Life Coach. All Rights Reserved. <br />
-          Copyright belongs to Chez IT Solutions Pvt Ltd
-        </p>
+          © 2026 Stalin Life Coach. All Rights Reserved./Copyright belongs to Chez IT Solutions Pvt Ltd.
+           </p>
       </div>
     </footer>
   );
