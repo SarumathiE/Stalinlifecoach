@@ -37,7 +37,7 @@ function Footer() {
           </div>
         </div>
         <div className="social-icons">
-          
+          <a
             href="https://www.facebook.com/profile.php?id=61591562655904"
             target="_blank"
             rel="noreferrer"
@@ -45,7 +45,7 @@ function Footer() {
           >
             <FaFacebook />
           </a>
-          
+          <a
             href="https://www.instagram.com/stalin_life_coach/"
             target="_blank"
             rel="noreferrer"
@@ -53,7 +53,7 @@ function Footer() {
           >
             <FaInstagram />
           </a>
-          
+          <a
             href="https://x.com/Stalinlifecoach"
             target="_blank"
             rel="noreferrer"
@@ -61,7 +61,7 @@ function Footer() {
           >
             <FaXTwitter />
           </a>
-          
+          <a
             href="https://wa.me/919943853567"
             target="_blank"
             rel="noreferrer"
@@ -72,8 +72,8 @@ function Footer() {
         </div>
         <hr />
         <p className="copyright">
-          © 2026 Stalin Life Coach. All Rights Reserved./Copyright belongs to Chez IT Solutions Pvt Ltd.
-           </p>
+          © 2026 Chez IT Solutions Pvt Ltd. All Rights Reserved.
+        </p>
       </div>
     </footer>
   );
